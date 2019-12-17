@@ -26,6 +26,8 @@
     "lint-staged": "^9.4.3",
     "sass": "^1.23.7",
     "sass-loader": "^8.0.0",
+    "stylus": "^0.54.7",
+    "stylus-loader": "^3.0.2",
     "vue-template-compiler": "^2.6.10"
   },
   "gitHooks": {
