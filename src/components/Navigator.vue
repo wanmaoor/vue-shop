@@ -1,6 +1,11 @@
 <template>
   <div id="nav">
-    <img alt="" src="../assets/logo.png" @click="$emit('reset')">
+    <img
+      alt=""
+      src="../assets/logo.png"
+      @click="$emit('reset')"
+      title="点击重置商品列表"
+    >
     <SearchInput @search="passToUp"/>
     <button id="cart" :data-cart="purchaseNum">购物车</button>
     <button id="fav" :data-number="favNum">我的收藏</button>
@@ -60,13 +65,14 @@
       justify-content: center;
       align-items: center;
   #nav
-    img
-      max-width 50px
+
     width Width
+    height 10vh
     margin Center
     display grid
     grid-template-columns 20% 50% 15% 15%
     align-items center
+
   #fav
     background yellow
     position relative
@@ -84,4 +90,10 @@
       display flex
       justify-content: center;
       align-items: center;
+  img
+    max-width 50px
+    transition .5s all ease-in-out
+    &:hover
+      max-width 60px
+
 </style>
