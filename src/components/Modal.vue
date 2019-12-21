@@ -36,11 +36,7 @@
     },
     computed: {
 			x(){
-				if (this.count === 0){
-					return true
-        } else {
-					return false
-        }
+				return this.count === 0
       }
     }
 	}

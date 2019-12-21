@@ -1,14 +1,18 @@
 <template>
   <div id="app">
-    <Navigator :favNum="favNum" :purchaseNum="purchaseNum"/>
+    <Navigator
+      :favNum="favNum"
+      :purchaseNum="purchaseNum"
+      @search="handleSearch"
+    />
     <div class="showcases">
       <ShowCase
-        :src="x"
+        :key="x.id"
+        :src="x.name"
         @addFav="addFav"
         @cancelFav="cancelFav"
         @purchased="handlePurchased"
         v-for="x in images"
-        :key="x"
       />
     </div>
   </div>
@@ -31,9 +35,18 @@
 		components: {Navigator, ShowCase},
 		data() {
 			return {
-				images: [iphone8, iphone11, iphone11pro, mate30pro, oneplus7pro, kamen, kelusu, wangxiaobo],
+				images: [
+					{id: 1, type: "phone", name: iphone8},
+					{id: 2, type: "phone", name: iphone11},
+					{id: 3, type: "phone", name: mate30pro},
+					{id: 4, type: "phone", name: iphone11pro},
+					{id: 5, type: "phone", name: oneplus7pro},
+					{id: 6, type: "book", name: kamen},
+					{id: 7, type: "book", name: kelusu},
+					{id: 8, type: "book", name: wangxiaobo},
+				],
 				favNum: 0,
-        purchaseNum: 0
+				purchaseNum: 0
 			}
 		},
 		methods: {
@@ -43,8 +56,15 @@
 			cancelFav() {
 				this.favNum -= 1
 			},
-      handlePurchased(){
+			handlePurchased() {
 				this.purchaseNum += 1
+			},
+      handleSearch(val){
+				if (!val){
+					return
+        } else {
+					console.log(val)
+        }
       }
 		}
 	}

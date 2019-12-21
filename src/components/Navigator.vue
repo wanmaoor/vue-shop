@@ -1,7 +1,7 @@
 <template>
   <div id="nav">
     <img alt="" src="../assets/logo.png">
-    <SearchInput/>
+    <SearchInput @search="passToUp"/>
     <button id="cart" :data-cart="purchaseNum">购物车</button>
     <button id="fav" :data-number="favNum">我的收藏</button>
   </div>
@@ -23,6 +23,11 @@
       }
     },
 		components: {SearchInput},
+    methods: {
+			passToUp(val){
+        this.$emit('search', val)
+      }
+    }
 	}
 </script>
 
@@ -36,6 +41,7 @@
     margin-left 10px
     cursor pointer
     outline clear-after chocolate
+    padding 10px
   #cart
     background #0099CC
     position relative
@@ -60,6 +66,7 @@
     margin Center
     display grid
     grid-template-columns 20% 50% 15% 15%
+    align-items center
   #fav
     background yellow
     position relative
