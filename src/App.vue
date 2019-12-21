@@ -3,22 +3,24 @@
     <Navigator
       :favNum="favNum"
       :purchaseNum="purchaseNum"
+      @reset="handleReset"
       @search="handleSearch"
     />
     <div class="showcases">
       <ShowCase
         :key="x.id"
-        :src="x.name"
+        :src="x.source"
         @addFav="addFav"
         @cancelFav="cancelFav"
         @purchased="handlePurchased"
-        v-for="x in images"
+        v-for="x in displayItems"
       />
     </div>
   </div>
 </template>
 
 <script>
+	import {hashIndex} from "./hashIndex"
 	import Navigator from "./components/Navigator"
 	import ShowCase from "./components/ShowCase"
 	import iphone11 from "./assets/iphone11.jpg"
@@ -36,18 +38,23 @@
 		data() {
 			return {
 				images: [
-					{id: 1, type: "phone", name: iphone8},
-					{id: 2, type: "phone", name: iphone11},
-					{id: 3, type: "phone", name: mate30pro},
-					{id: 4, type: "phone", name: iphone11pro},
-					{id: 5, type: "phone", name: oneplus7pro},
-					{id: 6, type: "book", name: kamen},
-					{id: 7, type: "book", name: kelusu},
-					{id: 8, type: "book", name: wangxiaobo},
+					{id: 1, type: "phone", name: "iphone8", source: iphone8},
+					{id: 2, type: "phone", name: "iphone11", source: iphone11},
+					{id: 3, type: "phone", name: "mate30pro", source: mate30pro},
+					{id: 4, type: "phone", name: "iphone11pro", source: iphone11pro},
+					{id: 5, type: "phone", name: "oneplus7pro", source: oneplus7pro},
+					{id: 6, type: "book", name: "kamen", source: kamen},
+					{id: 7, type: "book", name: "kelusu", source: kelusu},
+					{id: 8, type: "book", name: "wangxiaobo", source: wangxiaobo},
 				],
 				favNum: 0,
-				purchaseNum: 0
+				purchaseNum: 0,
+				displayItems: [],
+
 			}
+		},
+		mounted() {
+			this.displayItems = this.images
 		},
 		methods: {
 			addFav() {
@@ -56,16 +63,33 @@
 			cancelFav() {
 				this.favNum -= 1
 			},
+			handleReset() {
+				this.displayItems = this.images
+			},
 			handlePurchased() {
 				this.purchaseNum += 1
 			},
-      handleSearch(val){
-				if (!val){
+			handleSearch(val) {
+				const itemName = val.toLowerCase()
+				if (!val) {
+					console.log("啥也沒傳")
 					return
-        } else {
-					console.log(val)
-        }
-      }
+				} else {
+					this.displayItems = []
+					const images = this.images
+					for (const item in hashIndex) {
+						hashIndex[item].forEach(name => {
+							if (name.includes(itemName)) {
+								images.forEach(image => {
+									if (image.name === item) {
+										this.displayItems.push(image)
+									}
+								})
+							}
+						})
+					}
+				}
+			}
 		}
 	}
 </script>

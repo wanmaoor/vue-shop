@@ -1,6 +1,12 @@
 <template>
   <div id="search">
-    <input type="text" placeholder="搜索商品" class="input" v-model="inputValue">
+    <input
+      type="text"
+      placeholder="搜索商品"
+      class="input"
+      v-model="inputValue"
+      @keypress.enter="search"
+    >
     <button @click="search">搜索</button>
   </div>
 </template>
@@ -16,6 +22,7 @@
     methods: {
 			search(){
         this.$emit('search', this.inputValue)
+        this.inputValue = ''
       }
     }
 	}

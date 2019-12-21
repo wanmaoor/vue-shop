@@ -1,6 +1,6 @@
 <template>
   <div id="nav">
-    <img alt="" src="../assets/logo.png">
+    <img alt="" src="../assets/logo.png" @click="$emit('reset')">
     <SearchInput @search="passToUp"/>
     <button id="cart" :data-cart="purchaseNum">购物车</button>
     <button id="fav" :data-number="favNum">我的收藏</button>
