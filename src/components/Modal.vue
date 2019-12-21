@@ -13,7 +13,7 @@
             <span>数量: {{count}}</span>
             <button @click="count+=1">+</button>
           </div>
-          <button @click="purchase" :disabled="x">确定</button>
+          <button @click="purchase" :disabled="x">下单</button>
         </div>
       </div>
     </div>

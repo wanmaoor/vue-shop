@@ -2,23 +2,24 @@
   <div class="showcase">
     <img :src="src" alt="">
     <div class="buttons">
-      <button @click="handleFav">{{favState === true ? "取消收藏" : "收藏"}}</button>
-      <button @click="handlePurchase">添加到购物车</button>
+      <button @click="handleFav" class="button">{{favState === true ? "取消收藏" : "收藏"}}</button>
+      <button @click="handlePurchase" class="button">添加到购物车</button>
     </div>
     <Modal
+      :src="src"
       @cancel="handlePurchase"
       @purchased="handlePurchased"
       v-if="showModal"
-      :src="src"
     />
   </div>
 </template>
 
 <script>
 	import Modal from "../components/Modal"
+
 	export default {
 		name: "ShowCase",
-    components: {Modal},
+		components: {Modal},
 		props: ["src"],
 		data() {
 			return {
@@ -38,10 +39,10 @@
 			handlePurchase() {
 				this.showModal = !this.showModal
 			},
-			handlePurchased(){
-				this.$emit('purchased')
-        this.handlePurchase()
-      }
+			handlePurchased() {
+				this.$emit("purchased")
+				this.handlePurchase()
+			}
 		}
 	}
 </script>
@@ -52,4 +53,14 @@
     justify-content center
     flex-direction column
     align-items: center;
+    transition all .5s ease-in-out
+    background white
+    box-shadow: 0 11.3px 10.3px rgba(0, 0, 0, 0.07),
+      0 90px 82px rgba(0, 0, 0, 0.14);
+  .buttons
+    margin-top: 2vh
+    margin-bottom:2vh
+  .button
+    height 3vh
+    width 5vw
 </style>

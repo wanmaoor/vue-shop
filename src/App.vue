@@ -105,6 +105,7 @@
     margin-top: 50px
     display grid
     grid-template-columns repeat(4, 25%)
+    grid-gap 50px 50px
     img
       max-width imgWidth
 </style>
