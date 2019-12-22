@@ -89,6 +89,7 @@
     color ghostwhite
     text-align center
     border-radius 4px
+    cursor pointer
     &::before
       content attr(data-cart)
       position absolute
