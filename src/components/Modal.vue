@@ -23,7 +23,7 @@
 <script>
 	export default {
 		name: "Modal",
-    props: ['src'],
+    props: ['src', 'id'],
     data(){
 			return {
 				count:0
@@ -31,12 +31,19 @@
     },
     methods: {
 			purchase(){
-				this.$emit('purchased')
+				this.$emit('purchased', this.info)
       }
     },
     computed: {
 			x(){
 				return this.count === 0
+      },
+      info(){
+				return {
+					count: this.count,
+          img: this.src,
+          id: this.id
+        }
       }
     }
 	}

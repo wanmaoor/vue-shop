@@ -41,4 +41,5 @@
     cursor pointer
     outline clear-after chocolate
     padding 10px
+    width 5vw
 </style>

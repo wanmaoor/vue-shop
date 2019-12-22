@@ -1,44 +1,64 @@
 <template>
   <div id="nav">
     <img
+      @click="$emit('reset')"
       alt=""
       src="../assets/logo.png"
-      @click="$emit('reset')"
       title="点击重置商品列表"
     >
     <SearchInput @search="passToUp"/>
-    <button id="cart" :data-cart="purchaseNum">购物车</button>
-    <button id="fav" :data-number="favNum">我的收藏</button>
+    <div :data-cart="purchaseNum" id="cart">
+      <p>购物车</p>
+      <div class="shopList">
+        <List :count="list.count" :img="list.img" v-for="list in lists" :key="list.id"/>
+      </div>
+    </div>
+    <button :data-number="favNum" @mouseover="showFavList" id="fav">我的收藏</button>
+
   </div>
 </template>
 
 <script>
 	import SearchInput from "./SearchInput"
+	import List from "./List"
 
 	export default {
 		name: "Navigator",
-    props: {
+		props: {
 			favNum: {
 				type: Number,
-        required:true
-      },
-      purchaseNum: {
+				required: true
+			},
+			purchaseNum: {
 				type: Number,
-        required: true
-      }
-    },
-		components: {SearchInput},
-    methods: {
-			passToUp(val){
-        this.$emit('search', val)
-      }
-    }
+				required: true
+			},
+			count: Number,
+			img: String,
+      id: Number
+		},
+		components: {SearchInput, List},
+		methods: {
+			passToUp(val) {
+				this.$emit("search", val)
+			},
+			showFavList() {
+				console.log("hover")
+			}
+		},
+		data() {
+			return {
+				lists: [],
+			}
+		},
+		beforeUpdate() {
+			this.lists.push({count: this.count, img: this.img, id: this.id})
+		}
 	}
 </script>
 
 <style lang="stylus" scoped>
-  Width = 60vw
-  Border = 1px solid red
+  Width = 70vw
   Center = 0 auto
   button
     border 1px solid
@@ -51,11 +71,12 @@
     background #0099CC
     position relative
     color ghostwhite
+    text-align center
     &::before
       content attr(data-cart)
       position absolute
-      right 1px
-      top 1px
+      right 5px
+      top 5px
       width 20px
       height 20px
       border-radius 50%
@@ -64,15 +85,14 @@
       display flex
       justify-content: center;
       align-items: center;
+      text-align center
   #nav
-
     width Width
     height 10vh
     margin Center
     display grid
     grid-template-columns 20% 50% 15% 15%
     align-items center
-
   #fav
     background yellow
     position relative
@@ -80,8 +100,8 @@
     &::before
       content attr(data-number)
       position absolute
-      right 0
-      top 0
+      right 5px
+      top 5px
       width 20px
       height 20px
       border-radius 50%
@@ -93,7 +113,13 @@
   img
     max-width 50px
     transition .5s all ease-in-out
+    transform-origin center
     &:hover
       max-width 60px
-
+  .shopList
+    position absolute
+    border: 1px solid #000;
+    left 50%
+    transform translateX(-50%)
+    color black
 </style>

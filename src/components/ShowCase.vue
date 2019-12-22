@@ -7,6 +7,7 @@
     </div>
     <Modal
       :src="src"
+      :id="id"
       @cancel="handlePurchase"
       @purchased="handlePurchased"
       v-if="showModal"
@@ -20,7 +21,7 @@
 	export default {
 		name: "ShowCase",
 		components: {Modal},
-		props: ["src"],
+		props: ["src", "id"],
 		data() {
 			return {
 				favState: false,
@@ -39,8 +40,8 @@
 			handlePurchase() {
 				this.showModal = !this.showModal
 			},
-			handlePurchased() {
-				this.$emit("purchased")
+			handlePurchased(val) {
+				this.$emit("purchased", val)
 				this.handlePurchase()
 			}
 		}
@@ -55,6 +56,8 @@
     align-items: center;
     transition all .5s ease-in-out
     background white
+    border-radius: 10px 10px 10px 10px;
+    border: 0px solid #000000;
     box-shadow: 0 11.3px 10.3px rgba(0, 0, 0, 0.07),
       0 90px 82px rgba(0, 0, 0, 0.14);
   .buttons

@@ -5,11 +5,15 @@
       :purchaseNum="purchaseNum"
       @reset="handleReset"
       @search="handleSearch"
+      :count="count"
+      :img="img"
+      :id="id"
     />
     <div class="showcases">
       <ShowCase
         :key="x.id"
         :src="x.source"
+        :id="x.id"
         @addFav="addFav"
         @cancelFav="cancelFav"
         @purchased="handlePurchased"
@@ -50,7 +54,9 @@
 				favNum: 0,
 				purchaseNum: 0,
 				displayItems: [],
-
+        count: 0,
+        img: '',
+        id: 0
 			}
 		},
 		mounted() {
@@ -66,8 +72,12 @@
 			handleReset() {
 				this.displayItems = this.images
 			},
-			handlePurchased() {
+			handlePurchased(val) {
 				this.purchaseNum += 1
+        const {count, img, id} = val
+        this.count = count
+        this.img = img
+        this.id = id
 			},
 			handleSearch(val) {
 				const itemName = val.toLowerCase()
@@ -99,13 +109,12 @@
   body
     background #eee;
   .showcases
-    width 60vw
-    margin-left auto
-    margin-right auto
-    margin-top: 50px
+    width 70vw
+    margin 0 auto
     display grid
     grid-template-columns repeat(4, 25%)
     grid-gap 50px 50px
+    justify-content: center;
     img
       max-width imgWidth
 </style>
