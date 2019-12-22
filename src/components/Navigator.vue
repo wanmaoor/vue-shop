@@ -88,6 +88,7 @@
     position relative
     color ghostwhite
     text-align center
+    border-radius 4px
     &::before
       content attr(data-cart)
       position absolute
@@ -113,6 +114,8 @@
     background yellow
     position relative
     border-color yellow
+    border-radius 4px
+    padding 17px
     &::before
       content attr(data-number)
       position absolute
