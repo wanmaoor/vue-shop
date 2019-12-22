@@ -7,13 +7,19 @@
       title="点击重置商品列表"
     >
     <SearchInput @search="passToUp"/>
-    <div :data-cart="purchaseNum" id="cart">
+    <div :data-cart="purchaseNum" @click="toggleList" id="cart">
       <p>购物车</p>
-      <div class="shopList">
-        <List :count="list.count" :img="list.img" v-for="list in lists" :key="list.id"/>
+      <div class="shopList" v-if="seen">
+        <List
+          :count="list.count"
+          :id="list.id"
+          :img="list.img"
+          :key="list.id"
+          @cancelFromList="handleCancelList"
+          v-for="list in lists"/>
       </div>
     </div>
-    <button :data-number="favNum" @mouseover="showFavList" id="fav">我的收藏</button>
+    <button :data-number="favNum" id="fav">我的收藏</button>
 
   </div>
 </template>
@@ -35,24 +41,34 @@
 			},
 			count: Number,
 			img: String,
-      id: Number
+			id: Number,
 		},
 		components: {SearchInput, List},
 		methods: {
 			passToUp(val) {
 				this.$emit("search", val)
 			},
-			showFavList() {
-				console.log("hover")
+			toggleList() {
+				this.seen = !this.seen
+			},
+			handleCancelList(val) {
+				this.lists = this.lists.filter(list => list.id !== val)
+				this.$emit("cancelList")
 			}
 		},
 		data() {
 			return {
 				lists: [],
+				seen: false
 			}
 		},
-		beforeUpdate() {
-			this.lists.push({count: this.count, img: this.img, id: this.id})
+		watch: {
+			id: {
+				handler() {
+					this.lists.push({count: this.count, img: this.img, id: this.id})
+				},
+				deep: true
+			}
 		}
 	}
 </script>
@@ -122,4 +138,5 @@
     left 50%
     transform translateX(-50%)
     color black
+    width 10vw
 </style>

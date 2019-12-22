@@ -5,6 +5,7 @@
       :purchaseNum="purchaseNum"
       @reset="handleReset"
       @search="handleSearch"
+      @cancelList="purchaseNum-=1"
       :count="count"
       :img="img"
       :id="id"
