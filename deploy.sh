@@ -3,6 +3,7 @@ git checkout gh-pages &&
 rm -rf *.html *.js *.css *.png &&
 mv dist/* ./ &&
 rm -rf dist;
-acm "update" &&
+git add . &&
+git commit -m "update" &&
 push &&
 ch master
